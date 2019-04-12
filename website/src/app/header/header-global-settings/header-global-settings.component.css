@@ -1,0 +1,12 @@
+.dropdown-menu {
+  min-width: 80px;
+}
+.dropdown-item {
+  display: block;
+  color: #000;
+  padding-top: 0px !important;
+}
+
+.caret {
+  margin-left: 6px;
+}

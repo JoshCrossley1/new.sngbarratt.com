@@ -1,0 +1,74 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  font-family: 'Playfair Display', 'Times New Roman', Times, serif;
+}
+
+/* BORDERS */
+
+.border-right {
+  border-right: 1px solid #e8e8e8;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* PADDING */
+
+.p-0 {
+  padding: 0px; 
+}
+
+.pl-0 {
+  padding-left: 0px;
+}
+
+.pr-0 {
+  padding-right: 0px;
+}
+
+/* DISPLAY */
+
+.d-block {
+  display: block;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+/* FLAG */
+
+.flag {
+  background: url("/../../assets/content/images/flags.jpg") no-repeat;
+  display: inline-block;
+  width: 30px;
+  height: 14px;
+  vertical-align: middle;
+}
+
+.UK {
+  padding: 7px;
+  background-position: 0 0;
+}
+
+.US {
+  padding: 7px;
+  background-position: 0 -14px;
+}
+
+.FR {
+  padding: 7px;
+  background-position: 0 -28px;
+}
+
+.DE {
+  padding: 7px;
+  background-position: 0 -42px; 
+}
+
+.NL {
+  padding: 7px;
+  background-position: 0 -56px;
+}
