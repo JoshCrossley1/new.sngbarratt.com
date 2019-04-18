@@ -1,7 +1,6 @@
 img {
-  max-width: 150px;
-}
-
-.pt-15 {
-  padding-top: 15px;
+    display: block;
+    margin: 21px auto 20px;
+    width: 144px;
+    height: 66px;
 }

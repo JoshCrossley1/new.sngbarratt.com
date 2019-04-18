@@ -1,3 +1,56 @@
-<p>
-  login works!
-</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-3 col-xs-offset-3">
+            <h1>Login</h1>
+            <p>Token? {{token}}</p>
+            <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm)">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input class="form-control form-control-sm" formControlName="username" />
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input class="form-control form-control-sm" type="password" formControlName="password" />
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col-xs-3">
+            <h3>Login Data</h3>
+            <pre>
+                {{loginData | json}}
+            </pre>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <hr />
+        <div class="col-xs-3 col-xs-offset-3">
+            <h1>Auth API Request</h1>
+        </div>
+        <div class="col-xs-3">
+            <h3>Decoded Token Data</h3>
+            <pre>
+                {{decodedToken | json}}
+            </pre>
+        </div>
+    </div>
+    
+    <hr />
+
+    <div class="row mt-3">
+        <div class="col-xs-3 col-xs-offset-3">
+            <h1>Customer Details</h1>
+        </div>
+        <div class="col-xs-3">
+            <h3>Customer's data</h3>
+            <pre>
+                {{customer | json}}
+            </pre>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-xs-3 col-xs-offset-3">
+            <button class="btn btn-primary" (click)="loadCustomerByLocalStorage()">Load Customer</button>
+        </div>
+    </div>
+</div>
