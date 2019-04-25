@@ -1,8 +1,22 @@
+{{customerClass | json}}
+<br />
+{{customer | json}}
+<br />
+<button class="btn btn-success" (click)="loadCust()">Load customer class</button>
+
 <header></header>
 
-<router-outlet></router-outlet>
-
-<login></login>
+<div class="container-fluid "><!-- background class-->
+    <div class="container content-block">
+        <div class="row">
+            <div class="col-xs-12">
+                <login></login>
+                <router-outlet></router-outlet>
+            </div>
+        </div>      
+    </div>   
+</div>
+  
 
 <!--
 <button class="btn btn-lg btn-outline-primary" (click)="open()">Launch demo modal</button>

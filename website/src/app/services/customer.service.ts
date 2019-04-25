@@ -12,8 +12,6 @@ export class CustomerService {
     constructor(private _http: HttpClient) { }
 
     getCustomerByGuid = (guid) => {
-        console.log('get custoemer')
-        console.log(guid)
         return this._http.get(
             `${environment.apiUrl}customers/` + guid
         )        

@@ -1,8 +1,13 @@
-<div class="container-fluid">
+<p>Logged in? {{loggedIn}}</p>
+<button class="btn btn-sm btn-success" (click)="login()">Login</button>&nbsp;<button class="btn btn-sm btn-warning" (click)="logout()">Logout</button>
+
+<!--div class="container-fluid">
     <div class="row">
         <div class="col-xs-3 col-xs-offset-3">
             <h1>Login</h1>
             <p>Token? {{token}}</p>
+            <button class="btn btn-primary" (click)="loadRefreshToken()">Get refresh token</button>
+            <button class="btn btn-success" (click)="loadProductData()">Load product data</button>
             <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm)">
                 <div class="form-group">
                     <label>Username:</label>
@@ -53,4 +58,4 @@
             <button class="btn btn-primary" (click)="loadCustomerByLocalStorage()">Load Customer</button>
         </div>
     </div>
-</div>
+</div>-->

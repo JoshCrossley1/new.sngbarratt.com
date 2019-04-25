@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+
+import { Customer } from '../classes/customer';
+
 import { CustomerService } from '../services/customer.service';
 
 import { FormGroup, FormControl } from '@angular/forms';
@@ -21,15 +24,16 @@ export class LoginComponent implements OnInit {
     loginData: any;
     decodedToken: any;
 
+    loggedIn: any;
+
     customer: any;
 
-    constructor(private auth: AuthService, private userService: UserService, private customerService: CustomerService) {
+    constructor(private auth: AuthService, private userService: UserService, private customerService: CustomerService, private customerClass: Customer) {
         this.loginForm = new FormGroup({
             username: new FormControl(),
             password: new FormControl()
         })
     }    
-
 
     submit(form) {
         if (form.valid) {
@@ -40,30 +44,76 @@ export class LoginComponent implements OnInit {
             let req = 'grant_type=password&username=' + formValue.username + '&password=' + formValue.password + '&client_id=2FC6E2AC-18D6-462E-A662-FF6BC75968C9';
             this.auth.login(req)
                 .subscribe(response => {                    
-                    this.loginData = response;
-                    this.userService.setLocalStorage('jwToken', response);
-                    this.decodedToken = this.auth.decodeToken(this.loginData.access_token);
-                    this.userService.setLocalStorage('custGuid', this.decodedToken.custGuid);
-                    this.loadCustomer(this.decodedToken.custGuid);
+                    this.loginData = response;                
+                    console.log('LOGIN!!')
+                    console.log(this.loginData)
+                    let decodedToken = this.auth.decodeToken(this.loginData.access_token);
+                    console.log(decodedToken)
+                    this.userService.setLocalStorage('access_token', this.loginData.access_token);
+                    this.userService.setLocalStorage('refreshToken', this.loginData.refresh_token);
+                    this.userService.setLocalStorage('custGuid', decodedToken.custGuid);
+                    this.loadCustomerByLocalStorage();
+                }, error => {
+                    console.log(error)
                 })
         }
     }
 
-    loadCustomer(token) {
-        this.customerService.getCustomerByGuid(token)
+    loadRefreshToken = () => {
+        let rt = this.auth.getRefreshToken();                
+        this.auth.refreshToken(rt, '2FC6E2AC-18D6-462E-A662-FF6BC75968C9')
+            .subscribe((r: any) => {                
+                console.log(r)
+                this.userService.setLocalStorage('refreshToken', r.refresh_token);
+                this.userService.setLocalStorage('access_token', r.access_token);
+            }, error => {
+                console.log(error)
+                let t = this.auth.getAuthToken()
+                console.log(this.auth.isTokenExpired(t));
+                //clear local storage
+                this.userService.clearLocalStorage('access_token');
+                this.userService.clearLocalStorage('refreshToken');
+            })
+    }
+
+    loadCustomer(guid) {
+        this.customerService.getCustomerByGuid(guid)
             .subscribe(r => {
                 this.customer = r;
+                this.customerClass.update(r);
             })
-    }    
+    }
 
     loadCustomerByLocalStorage() {
         let guid = this.auth.getLocalStorage('custGuid');
         this.loadCustomer(guid)
     }
 
-    ngOnInit() {
+    loadProductData() {
+        this.auth.loadProductData()
+            .subscribe(r => {
+                console.log(r)
+            })
     }
 
-  
+    login() {
+        let req = 'grant_type=password&username=josh.crossley@sngbarratt.com' + '&password=Crossley123' + '&client_id=2FC6E2AC-18D6-462E-A662-FF6BC75968C9';
+        this.auth.login(req)
+            .subscribe(response => {
+                this.loginData = response;                
+                let decodedToken = this.auth.decodeToken(this.loginData.access_token);
+                console.log(decodedToken)
+                this.userService.setLocalStorage('access_token', this.loginData.access_token);
+                this.userService.setLocalStorage('refreshToken', this.loginData.refresh_token);
+                this.userService.setLocalStorage('custGuid', decodedToken.custGuid);
+                this.loggedIn = true;
+                
+                this.loadCustomerByLocalStorage();                
+            }, error => {
+                console.log(error)
+            })
+    }
 
+    ngOnInit() {
+    }    
 }

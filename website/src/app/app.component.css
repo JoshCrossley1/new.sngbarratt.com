@@ -1,0 +1,20 @@
+.background {
+    position: fixed;
+    top: 263px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: -webkit-linear-gradient(top,#fff 0,#e6e6e6 30%);
+    background-image: -o-linear-gradient(top,#fff 0,#e6e6e6 30%);
+    background-image: linear-gradient(to bottom,#fff 0,#e6e6e6 30%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+    z-index: -1;
+}
+
+.content-block {
+    background: #fff;
+    border: 0;
+    box-shadow: 0 21px 17px 0 rgba(148,148,148,.45);
+    margin-bottom: 64px;    
+}

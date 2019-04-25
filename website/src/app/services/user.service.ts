@@ -19,5 +19,9 @@ export class UserService {
             return sessionStorage.getItem(name);
         }
     }
-   
+
+    clearLocalStorage = (str) => {
+        localStorage.removeItem(str);
+    }
+
 }

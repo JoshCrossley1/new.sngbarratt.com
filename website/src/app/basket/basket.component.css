@@ -1,0 +1,65 @@
+i {
+    font-size: 16px;
+}
+
+.subheading {
+    color: #777;
+    font-size: 85%;
+}
+
+.bskt-text-sm { 
+    font-size: 12px;
+}
+
+
+.qty-input-height {
+    height: 30px;
+}
+
+.bsktAlert {
+    font-size: 1.4em;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.bsktAlertHolder {
+    padding-top: 12px;
+    display: block;
+}
+
+.product-body {
+    padding: 16px 8px 8px;
+}
+
+.price {
+    font-size: 1.6em;
+    line-height: 100%;
+    color: #000;
+    font-weight: 400;
+    margin: 0;
+}
+
+.prod-blue {
+    color: #0d7dd3;
+    font-weight: 700;
+}
+
+.custom-padding {
+    padding: 16px 0px 0px;
+}
+
+.dl-horizontal {
+    font-size: 12px;
+}
+
+.dl-horizontal dt {
+    text-align: left;
+    margin-right: 4px;
+    color: #989898;    
+    width: auto !important;
+}
+
+.dl-horizontal dd {
+    margin-left: 0px;
+    color: #000;
+}

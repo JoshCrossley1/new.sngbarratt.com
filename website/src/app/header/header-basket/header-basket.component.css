@@ -6,3 +6,7 @@
     margin: 16px 8px;
     float: right;
 }
+
+.basket:hover {
+    cursor: pointer;
+}

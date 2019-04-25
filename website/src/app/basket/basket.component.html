@@ -1,0 +1,126 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            {{basket | json}}
+        </div>
+    </div>
+    <div class="row" *ngFor="let promo of shippingPromotions">
+        <div class="col-xs-12">
+            <div class="alert alert-info text-center">
+                <strong>{{promo.desc}}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="basket.items">
+        <div class="col-xs-12 col-sm-push-7 col-sm-5 text-right">
+            <a class="btn btn-lg btn-bskt btn-block-xs">Proceed to Secure Checkout <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="col-xs-12 col-sm-pull-5 col-sm-7 text-left">
+            <div class="bsktAlertHolder">
+                <span class="bsktAlert black">Basket Contents</span>            
+            </div>            
+        </div>
+    </div>
+    <div class="row mt-15" *ngIf="basket.items">
+        <div class="col-xs-12 faux-tbl">            
+            <div class="row faux-tbl-head">
+                <div class="col-xs-9 col-sm-10 col-md-4 col-md-push-1 p-0">
+                    Product
+                </div>
+                <div class="col-xs-3 col-sm-5 col-md-3 p-0">
+                    Quantity
+                </div>
+                <div class="col-xs-1 col-md-1 pull-right">
+                    &nbsp;
+                </div>
+                <div class="col-xs-12 col-md-2 pull-right p-0">
+                    Line Price <span class="subheading">(ex VAT)</span>
+                </div>
+                <div class="col-xs-12 col-md-2 pull-right p-0">
+                    Unit Price <span class="subheading">(ex VAT)</span>
+                </div>                
+            </div>
+            <div class="row faux-tbl-body" >
+                <div class="col-xs-12">
+                    <div class="row product-result" *ngFor="let item of basket.items">
+                        <div class="col-xs-8 col-sm-10 col-md-3 col-md-push-1 pad-l-15">
+                            <h5>
+                                <a class="prod-blue">{{item.title}}</a>
+                            </h5>
+                            <dl class="dl-horizontal dl-horizontal-sm">
+                                <dt>Product Code:</dt>
+                                <dd>
+                                    <a>{{item.partNumber}}</a>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-xs-4 can-sm-2 col-md-1 col-md-pull-3 text-center img-td">
+
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-3 p-0">
+                            <div class="form-group col-xs-3 sm custom-padding">
+                                <input class="form-control qty-input-height" />
+                            </div>
+                        </div>
+                        <div class="col-xs-1 col-md-1 pull-right p-15">                            
+                            <i class="fas fa-times-circle text-danger"></i>
+                        </div>
+                        <div class="col-xs-12 col-md-2 pull-right p-0">
+                            <div class="custom-padding">
+                                <p>{{item.unitPrice | currency: 'GBP'}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2 pull-right p-0">
+                            <div class="custom-padding">
+                                <p>{{item.linePrice | currency: 'GBP'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row faux-tbl-body faux-tbl-body-end p-15">
+                <div class="col-xs-12 can-sm-10 col-md-7 bskt-text-sm">
+                    <p class="m-0">
+                        Basket items will expire after 7 days - with the option to renew or remove.                        
+                    </p>
+                    <p>                        
+                        Basket items that are on special offer will be automatically removed when the offer expires.                        
+                    </p>
+                </div>
+                <div class="col-xs-3 col-md-2 p-0">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p><strong>Total</strong></p>
+                            <p><small>(Excludes Vat &amp; Shipping)</small></p>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="col-md-1 p-0">
+                    <p>&pound;10.00</p>
+                </div>
+                <div class="col-xs-2 col-md-2 text-right">                   
+                    <button class="btn btn-sm">
+                        Empty Basket
+                    </button>                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-15">
+        <div class="col-xs-12 text-right">
+            <a class="btn btn-lg btn-bskt btn-block-xs">Proceed to Secure Checkout <i class="fas fa-chevron-right"></i></a>  
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row" *ngFor="let product of products">
+        <div class="col-xs-12">
+            {{product.title}}<br />
+            <button class="btn btn-warning btn-sm" (click)="addToBasket(product)">Add to basket</button>
+        </div>
+    </div>
+</div>

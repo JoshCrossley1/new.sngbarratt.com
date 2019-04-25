@@ -2,26 +2,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Router, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpConfigInterceptor } from './services/http-config-interceptor';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
-
+//import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
 
-export function jwtOptionsFactory() {
-    let auth: AuthService;
-    return {
-        tokenGetter: () => {            
-            return 'access_token'
-        },
-        getAuth: () => {
-            //return auth.getAsyncToken();
-        }
-    }    
-}
+import { Customer } from './classes/customer';
+import { Basket } from './classes/basket';
 
-//import { HttpInterceptorService } from './services/http-interceptor.service';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -35,10 +27,15 @@ import { HeaderBasketComponent } from './header/header-basket/header-basket.comp
 import { NavbarComponent } from './header/navbar/navbar.component';
 import { GenericSearchComponent } from './generic-search/generic-search.component';
 import { ModalLoginComponent } from './modal-login/modal-login.component';
+import { BasketComponent } from './basket/basket.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 const appRoutes: Routes = [
+    { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'not-found', component: NotFoundComponent }
+    { path: 'not-found', component: NotFoundComponent },
+    { path: 'basket', component: BasketComponent },
+    { path: '**', component: NotFoundComponent }
 ]
 
 @NgModule({
@@ -55,17 +52,13 @@ const appRoutes: Routes = [
     HeaderBasketComponent,
     NavbarComponent,
     GenericSearchComponent,
-    ModalLoginComponent
+    ModalLoginComponent,
+    BasketComponent,
+    HomepageComponent
   ],
   imports: [
       BrowserModule,
       HttpClientModule,
-      JwtModule.forRoot({
-          jwtOptionsProvider: {
-              provide: JWT_OPTIONS,
-              useFactory: jwtOptionsFactory
-          }
-      }),
       RouterModule.forRoot(appRoutes),
       ReactiveFormsModule,
       NgbModalModule
@@ -76,7 +69,10 @@ const appRoutes: Routes = [
       ModalLoginComponent
   ],
   providers: [
-      //{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
+      AuthService,        
+      Customer,
+      Basket,
+      { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

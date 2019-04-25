@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 
+import { Customer } from './classes/customer';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,10 +15,26 @@ export class AppComponent {
 
     branch: string = 'UK';    
     token: any;
+    customer: any;    
 
     closeResult: any;
 
-    constructor(private auth: AuthService, private userService: UserService) { }    
+    constructor(private auth: AuthService, private userService: UserService, private customerClass: Customer) {
+        this.preRenderCust()
+    }    
+
+    preRenderCust() {
+        let x = {
+            id: '3e8e7086-d66f-4a09-ba44-73c92b86d334',
+            name: 'Josh C'            
+        }
+        this.customerClass.update(x);
+    }
+
+    loadCust() {
+        this.customer = this.customerClass.get();
+    }
+
 
     /*
     requestProduct = () => {        
