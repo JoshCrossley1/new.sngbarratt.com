@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Basket } from '../../classes/basket';
 
 @Component({
   selector: 'header-basket',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderBasketComponent implements OnInit {
 
-  constructor() { }
+    basket: any;
+
+    constructor(private basketClass: Basket) {
+        this.basketClass.get()
+            .subscribe((r: any) => {    
+                this.basket = r;
+            })
+    }
 
   ngOnInit() {
   }

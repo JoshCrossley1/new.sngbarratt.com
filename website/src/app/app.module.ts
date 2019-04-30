@@ -29,9 +29,16 @@ import { GenericSearchComponent } from './generic-search/generic-search.componen
 import { ModalLoginComponent } from './modal-login/modal-login.component';
 import { BasketComponent } from './basket/basket.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { ProductSearchComponent } from './header/navbar/product-search/product-search.component';
+import { ProductComponent } from './product/product.component';
+import { PartResultComponent } from './part-result/part-result.component';
+import { EatClickIfDirective } from './directives/eat-click-if.directive';
+import { SngTranslateDirective } from './directives/sng-translate.directive';
+import { StockStatusComponent } from './part-result/stock-status/stock-status.component';
+import { PartTypeComponent } from './part-result/part-type/part-type.component';
 
 const appRoutes: Routes = [
-    { path: '', component: LoginComponent },
+    { path: '', component: HomepageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'not-found', component: NotFoundComponent },
     { path: 'basket', component: BasketComponent },
@@ -54,7 +61,14 @@ const appRoutes: Routes = [
     GenericSearchComponent,
     ModalLoginComponent,
     BasketComponent,
-    HomepageComponent
+    HomepageComponent,
+    ProductSearchComponent,
+    ProductComponent,
+    PartResultComponent,
+    EatClickIfDirective,
+    SngTranslateDirective,
+    StockStatusComponent,
+    PartTypeComponent    
   ],
   imports: [
       BrowserModule,

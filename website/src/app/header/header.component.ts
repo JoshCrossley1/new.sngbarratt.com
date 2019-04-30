@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'header',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  results: any;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  newResults = (res) => {
+      this.results = res;
   }
 
 }

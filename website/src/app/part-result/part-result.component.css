@@ -1,0 +1,101 @@
+.product .result {
+    font-size: .65em;
+    margin: 0 0 16px;
+}
+
+.product .result .ctas {
+    text-align: right;    
+}
+
+.product {
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(2,2,2,.11);
+    background: #fff;
+    position: relative;    
+    border: 1px solid #c6c6c6;
+}
+
+.product .price {
+    /*font-size: 1.6em;*/
+    line-height: 100%;
+    color: #000;
+    font-weight: 400;
+}
+
+.product .price small {
+    white-space: nowrap;
+    color: #777 !important;
+}
+
+content {
+    padding: 0;
+}
+
+.product-body {
+    padding: 16px 8px 8px;
+    height: 100%;
+}
+
+.product .result .link-are {
+    position: relative;
+    cursor: pointer;
+}
+
+.details {
+    right: auto;
+    left: auto;
+}
+
+img {
+    width: auto;
+    max-height: 100px;
+}
+
+.img-cont {
+    left: auto;
+    right: auto;
+}
+
+.header {
+    padding: 0px;
+}
+
+.header h5 {
+    margin: 0;
+}
+
+.header h5 a {
+    color: #0d7dd3;
+    font-weight: 700;
+}
+
+.header .price {
+    margin: 8px 0 0;
+}
+
+.short {
+    margin: 8px 0;
+}
+
+.alternativesToggle {
+    position: absolute;
+    bottom: 0;
+    padding: 11px;
+    background: 0 0;
+    display: inline-block;
+    width: auto;
+}
+
+.dl-left dt {
+    text-align: left !important;   
+    width: auto;
+    margin-right: 4px;
+    color: #989898;
+    font-weight: 400;
+    font-size: 11px;
+}
+
+.dl-left dd {
+    margin-left: 4px;
+    font-size: 11px;
+}

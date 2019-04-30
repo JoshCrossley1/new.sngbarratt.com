@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 export class Customer {
 
-    private details: BehaviorSubject<any> = new BehaviorSubject<any>(null)
+    public details: BehaviorSubject<any> = new BehaviorSubject<any>(null)
 
     update = (d) => {
         this.details.next(d);

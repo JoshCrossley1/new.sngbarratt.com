@@ -43,9 +43,9 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {   
-
+        
         const token: string = localStorage.getItem('access_token');
-
+        
         /*
         ideally, this is similar to how we would hanle
         console.log('intercept')
@@ -59,13 +59,15 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         if (token) {
             
             //get token expiration date, then check if token is expired
-
+            let refreshingToken;
             let tokenExpired = this.isTokenExpired(token);
             if (tokenExpired) {
                 //if token is expired, check if we have a refresh token
                 let refreshToken = this.authService.getRefreshToken()
                 if (refreshToken) {
                     console.log('REFRESH TOKEN')
+                    //infinite looop
+
                     this.authService.refreshToken(refreshToken, '2FC6E2AC-18D6-462E-A662-FF6BC75968C9')
                         .subscribe((r: any) => {
                             console.log(r)
@@ -84,6 +86,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                     window.alert('USER NEEDS TO LOG BACK IN')
                 }
             }
+        } else {
+            console.log('NO TOKEN')
         }
 
         return next.handle(this.addToken(request, this.authService.getAuthToken()))            

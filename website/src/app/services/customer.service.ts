@@ -14,7 +14,14 @@ export class CustomerService {
     getCustomerByGuid = (guid) => {
         return this._http.get(
             `${environment.apiUrl}customers/` + guid
-        )        
+        )                
     }
+
+    getCustomersOrders = (guid) => {
+        return this._http.get(
+            `${environment.apiUrl}customers/` + guid + `/orders`
+        )
+    }
+
 
 }

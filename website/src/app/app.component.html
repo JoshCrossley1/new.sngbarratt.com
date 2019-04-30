@@ -1,16 +1,14 @@
-{{customerClass | json}}
+<b>Customer class:</b> {{customer | json}}
 <br />
-{{customer | json}}
+<b>Basket class:</b> {{basket | json}}
 <br />
-<button class="btn btn-success" (click)="loadCust()">Load customer class</button>
 
 <header></header>
 
 <div class="container-fluid "><!-- background class-->
     <div class="container content-block">
         <div class="row">
-            <div class="col-xs-12">
-                <login></login>
+            <div class="col-xs-12">                
                 <router-outlet></router-outlet>
             </div>
         </div>      

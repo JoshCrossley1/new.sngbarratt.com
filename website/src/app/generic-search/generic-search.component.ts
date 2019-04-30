@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'generic-search',
@@ -11,11 +12,16 @@ export class GenericSearchComponent implements OnInit {
     @Input() columns: string;
     @Input() inputType: string;
 
-    //can be extended further in future for more generic customisation
-
-  constructor() { }
+    searchForm: FormGroup;    
 
 
+    constructor() {
+        this.searchForm = new FormGroup({
+            searchInput: new FormControl()
+        })
+    }
+
+    
   ngOnInit() {
   }
 

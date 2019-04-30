@@ -2,9 +2,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
-            {{basket | json}}
+            <b>Basket: </b> {{basket | json}}
+            <br />
+            <br />
+            <b>Cust: </b> {{cust | json}}
         </div>
     </div>
+</div>
+
+
+
+    <!-- 
     <div class="row" *ngFor="let promo of shippingPromotions">
         <div class="col-xs-12">
             <div class="alert alert-info text-center">
@@ -114,13 +122,4 @@
             <a class="btn btn-lg btn-bskt btn-block-xs">Proceed to Secure Checkout <i class="fas fa-chevron-right"></i></a>  
         </div>
     </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row" *ngFor="let product of products">
-        <div class="col-xs-12">
-            {{product.title}}<br />
-            <button class="btn btn-warning btn-sm" (click)="addToBasket(product)">Add to basket</button>
-        </div>
-    </div>
-</div>
+      -->

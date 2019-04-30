@@ -57,9 +57,9 @@ export class AuthService {
     }
 
     refreshToken = (token, clientId) => {        
-        return this._http.post(
-            `${environment.apiUrl}auth/token`, `refresh_token=` + token + `&client_id=` + clientId + `&grant_type=refresh_token`
-        )        
+        return this._httpSkipAuth.post(
+            `${environment.apiUrl}auth/token`, `refresh_token=` + token + `&client_id=` + clientId + `&grant_type=refresh_token`, this.getHeaders()
+        )
     }
     
     //load refresh token from localStorage
@@ -80,14 +80,13 @@ export class AuthService {
     logout = () => {
         this.userService.clearLocalStorage('access_token')
         this.userService.clearLocalStorage('refreshToken')
-        this.customerClass.update(null);
+        let guestCust = {
+            customerGuid: 'guest'
+        }
+        this.customerClass.update(guestCust);
     }
 
-    getLocalStorage(str) {
-        let response = window.localStorage.getItem(str)
-        return JSON.parse(response);
-    }
-
+    
     //idea, use httpbackend which will directly communicate with api without the interceptor being invoked. 
     //manually set the http headers and then hit endpoint
 

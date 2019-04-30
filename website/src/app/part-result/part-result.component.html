@@ -1,0 +1,190 @@
+<section [ngClass]="[partTypeClass ? partTypeClass : '', view, partSuperseded || result.hasAlternatives ? 'tile-fluid-height' : '', result.hasAlternatives && !partSuperseded ? 'hasAlternatives' : '', alternativesOpen ? 'alternativesOpen' : '']" id="result.webProductGuid">
+    <div class="product-body" [ngClass]="{'superseded' : partSuperseded, 'recommended' : result.recommended}">
+
+        <!-- CLICK-ABLE LINK AREA -->
+        <div class="row link-area tbl" [routerLink]="['/part', {productId: result.webProdutGuid, fromList: list, fromCategory: category}]" ng-click="productClick()" eatClickIf="result.supersession.length" [ngClass]="{'op5' : partSuperseded, 'cancelHover' : result.supersession.length}">
+
+            <!-- PART DETAILS -->
+            <div class="details" [ngClass]="partSuperseded ? 'col-xs-12' : 'col-xs-7 col-sm-9 col-md-9 col-md-push-3 col-lg-10 col-lg-push-2'">
+                <div class="header">
+
+                    <!-- TITLE -->
+                    <h5>
+                        <a [routerLink]="['/part', {productId: result.webProductGuid, fromList: list, fromCategory: category}]" eatClickIf="result.supersession.length" [ngClass]="{'purple' : partSuperseded, 'cancelHover' : result.supersession.length}">
+                            {{result.title}}
+                        </a>
+                    </h5>
+
+                    <!-- LOADING ELEMENT IF GETTING PART STUB -->
+                    <div *ngIf="stubFb.status" class="stub-info {{stubFb.status}}">
+                        <div *ngIf="stubFb.status == 'grey'" class="spinner-icon xxs pull-left"></div>
+
+                        <span [ngSwitch]="stubFb.text">
+                            <span *ngSwitchCase="LDG" sng-translate="">Loading</span>
+                            <span *ngSwitchCase="ERRPRTDTLS" sng-translate="">Error loading part details</span>
+                            <span *ngSwitchCase="NLA" sng-translate>No Longer Available</span>
+                            <span *ngSwitchDefault>{{stubFb.text}}</span>
+                        </span>
+
+                    </div>
+
+                    <!-- PRICE -->
+                    <div 
+                         class="price"
+                         *ngIf="!stubFb.status && result.branchProduct.status != 'SUP' && result.branchProduct.status != 'NLA' && result.branchProduct.unitPrice != 0"
+                         price=""
+                         base-price="result.branchProduct.unitPrice"
+                         retail-price="result.branchProduct.retailPrice"
+                         retail-price-with-tax="result.branchProduct.retailPriceWithTax"
+                         surcharge="result.branchProduct.surcharge"
+                         surcharge-with-tax="result.branchProduct.surchargeWithTax"
+                         tax-price="result.branchProduct.taxPrice"
+                         offer="result.branchProduct.specialOffer"
+                         recommended="result.recommended"
+                         saving="result.saving"
+                         saving-with-tax="result.savingWithTax">
+                    </div>
+                </div>
+
+                <!-- DETAILS AND DESCRIPTION -->
+                <content class="tile-hidden">
+                    <dl class="dl-horizontal-sm dl-horizontal dl-left">
+
+                        <dt sng-translate="">Product Code:</dt>
+                        <dd>{{result.partNumber}}</dd>
+                        <dt sng-translate="">Part Type:</dt>
+                        <dd><part-type productCode="result.partNumber" display="type"></part-type></dd>
+                        <dt sng-translate=""><span style="font-size: 0;">Stock Status</span></dt>
+                        <dd><stock-label [status]="result.branchProducts[0].status" supersession="destinationObj" size="xs" type="text-only"></stock-label></dd>
+                    </dl>
+                    <p class="grid-hidden hidden-xs" ng-show="result.description && !partSuperseded">{{result.description}}</p>
+                </content>
+            </div>
+
+            <!-- IMAGE -->
+            <div *ngIf="!partSuperseded" class="col-xs-5 col-sm-3 col-md-3 col-md-pull-9 col-lg-2 col-lg-pull-10 text-center img-cont bg-white">
+
+                <div class="img-cell" [ngSwitch]="result.imageUrl">
+                    <div *ngSwitchCase="null">
+                        <div class="awaiting-img-wrapper">
+                            <div></div>
+                            <span class="glyphicon glyphicon-camera"></span>
+                        </div>
+                    </div>
+                    <img ngSwitchDefault="" alt="{{result.title + (result.description ? ' - ' + result.description : '')}}" title="{{result.partNumber}}" [src]="result.imageUrl" />
+                </div>
+            </div>
+        </div>
+
+        <!--/CLICKABLE LINK AREA-->
+
+        <div class="row" *ngIf="result.recommended">
+            <div class="col-xs-12 col-sm-12 col-md-pull-9 col-md-push-3 col-lg-pull-10 col-lg-push-2 recommended-row">
+                
+                <div class="alert alert-success alert-success-outline-dark recommended-stamp">
+                    <i class="glyphicon glyphicon-thumbs-up pull-left"></i>
+                    <span class="pull-left">
+                        <small sng-translate="">RECOMMENDED BY</small>
+                        <b>SNG BARRATT</b>
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--CTAs ROW -->
+        <div class="row ctas" ng-show="stockOk">
+            <hr class="short list-hidden-md">
+            
+            <div class="form-always-inline">
+                <div class="form-group hidden-xs grid-hidden tile-hidden" [ngClass]="{'list-hidden-md' : alternativesOpen}" *ngIf="result.hasAlternatives && partType != 'alternative' && !partSuperseded">
+                    <button class="alternativesToggle" ng-click="getAlternatives(result.webProductGuid, result.branchProduct.unitPrice, result.branchProduct.taxPrice)" sng-translate="">{{alternativesOpen ? 'Close Comparison' : 'Compare with alternative parts'}}</button>
+                </div>
+
+                <div class="form-group xs" style="margin-right: 4px;">
+                    <label for="quantity">Qty:</label>
+                    <input class="form-control qty" type="number" min="1" max="10000" />
+                </div>
+
+                <div class="form-group xs">
+                    <button ng-click="addToBasket(result, qty)" class="btn btn-xs btn-bskt" [ngSwitch]="fb.text">
+                        <span *ngSwitchCase="BSKTADDG">
+                            <span class="glyphicon cancel-form-fb glyphicon-cog spin-glyphicon"></span> 
+                            <span sng-translate="">Adding</span>
+                        </span>
+                        <span *ngSwitchCase="BSKTADDD">
+                            <span class="glyphicon cancel-form-fb glyphicon-ok"></span>
+                            <span sng-translate="">Added Successfully</span>
+                        </span>
+                        <span *ngSwitchCase="ERRTRY">
+                            <span class="glyphicon cancel-form-fb glyphicon-exlamation-sign"></span>
+                            <span sng-translate="">Error - Try Again</span>
+                        </span>
+                        <span *ngSwitchDefault="">
+                            <span class="glyphicon cancel-form-fb glyphicon-shopping-cart"></span>
+                            <span sng-translate="">Add to Basket</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUPERSESSION PARTS LIST -->
+    <div ng-show="partSuperseded" class="supBlock">
+
+        <div class="row supHeight">
+            <div class="col-xs-12">
+                <h4 class="supersessionHeadline purple">
+                    <i sng-translate="">
+                    {{view == 'tile' ? 'Superseded By' : 'This product has been superseded by the following ' + (result.supersession.length > 1 ? 'products' : 'product') }}
+                    </i>
+                </h4>
+            </div>
+            <part-result *ngFor="let superPart of result.supersession" part-data="superPart" part-type="supersession" update="bskt" view="view" list="list" category="category">
+            </part-result>           
+        </div>
+
+        <div class="row multi-supersession-add" ng-show="result.supersession.length > 1">
+            <div class="col-xs-12 col-sm-6 col-md-3 pull-right">                
+                <!--
+                <multi-basket-add items="result.supersession" update="bskt" category="category">
+                </multi-basket-add>
+                -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ALTERNATIVES PARTS COMPARISON LOADING -->
+
+    <div *ngIf="alternativesOpen && alternativesFb.status" class="loading-placeholder row">
+        <div class="col-xs-12">
+            <div class="load-mask flat" ng-click="closeLoad(this)">
+                <div class="row tbl">
+                    <div class="col-xs-12">
+                        <!--<loading status="alternativesFb.status" text="alternativesFb.status" desc="alternativesFb.desc" glyph="alternativesFb.icon" size="sm"></loading>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALTERNATIVES PARTS LIST -->
+    <div *ngIf="alternativesOpen">
+        <part-result *ngFor="let alternativePart of alternatives" part-data="alternativePart" part-type="alternative" update="bskt" ng-class="view" list="list" category="category">
+        </part-result>
+    </div>
+    
+
+    <!-- ALTERNATIVES TOGGLE BUTTON -->
+    <button class="btn btn-sm alternativesToggle tile-slider-hidden" [ngClass]="{'list-hidden-md': !alternativesOpen, 'staticPos': !stockOk}" *ngIf="result.hasAlternatives && partType != 'alternative' && !partSuperseded" ng-click="getAlternatives(result.webProductGuid, result.branchProduct.unitPrice, result.branchProduct.taxPrice)" sng-translate="">
+        {{alternativesOpen ? 'Close Comparison' : 'Compare with alternative parts'}}
+    </button>
+
+    <!-- SAVE TO LIST BUTTON -->
+    <!--
+    <save-to-list *ngIf="saveEnabled && !partSuperseded" product="result" quantity="qty" type="dropdown" trigger-type="icon" source="result">
+    </save-to-list>
+    -->
+
+</section>

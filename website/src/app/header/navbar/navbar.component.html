@@ -1,22 +1,21 @@
-<div class="container-fluid bg-brand">
-    <div class="container-custom">
-        <div class="row nav-row">
-            <div class="col-xs-8 p-0">                
-                    <nav>
-                        <ul class="nav">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Find Parts</a></li>
-                            <li><a href="#">Merchandise</a></li>
-                            <li><a href="#">Catalogues</a></li>
-                            <li><a href="#">Sale Items</a></li>
-                        </ul>
-                    </nav>                    
-            </div>
-            <div class="col-xs-4 p-0">       
-                <div class="row can-padd">                                       
-                    <generic-search [inputType]="submit" [columns]="'col-xs-9 pull-right'" [placeholder]="'Part Number or Keyword Search'"></generic-search>                    
-                </div>                 
-            </div>
+<div class="container-custom">
+    <div class="row nav-row">
+        <div class="col-xs-8 p-0">                
+                <nav>
+                    <ul class="nav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Find Parts</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Catalogues</a></li>
+                        <li><a href="#">Sale Items</a></li>
+                    </ul>
+                </nav>                    
+        </div>
+        <div class="col-xs-4 p-0">       
+            <div class="row can-padd">          
+                <product-search></product-search>
+                <!--<generic-search [inputType]="submit" [columns]="'col-xs-9 pull-right'" [placeholder]="'Part Number or Keyword Search'"></generic-search>-->
+            </div>                 
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@ import { Basket } from '../classes/basket';
 
 import { ProductsService } from '../services/products.service';
 import { BasketService } from '../services/basket.service';
+import { Customer } from '../classes/customer';
 
 @Component({
     selector: 'app-basket',
@@ -13,10 +14,20 @@ export class BasketComponent implements OnInit {
 
     products: any;
     basket: any;
+    cust: any;
 
-    constructor(private productsService: ProductsService, private basketService: BasketService, private basketClass: Basket) {
+    constructor(private productsService: ProductsService, private basketService: BasketService, private basketClass: Basket, private customerClass: Customer) {
 
-        this.basket = this.basketClass.get();
+        this.customerClass.get()
+            .subscribe((cust: any) => {
+                this.cust = cust;
+            })
+
+        this.basketClass.get()
+            .subscribe((bskt: any) => {
+                this.basket = bskt;
+            })
+        
 
         this.productsService.getProducts()
             .subscribe((r: any) => {
